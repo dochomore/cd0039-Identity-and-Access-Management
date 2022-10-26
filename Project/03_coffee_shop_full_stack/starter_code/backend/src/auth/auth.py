@@ -1,11 +1,12 @@
 import json
+from os import abort
 from flask import request, _request_ctx_stack
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = 'udacity-fsnd.auth0.com'
+AUTH0_DOMAIN = 'dev-k4fsry3r.us.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'dev'
 
@@ -31,6 +32,7 @@ class AuthError(Exception):
     return the token part of the header
 '''
 def get_token_auth_header():
+    # if request.header['']
    raise Exception('Not Implemented')
 
 '''
@@ -45,7 +47,11 @@ def get_token_auth_header():
     return true otherwise
 '''
 def check_permissions(permission, payload):
-    raise Exception('Not Implemented')
+    if 'permissions' not in payload:
+        abort(403)
+    if permission not in payload['permission']:
+        abort(403)
+    return True
 
 '''
 @TODO implement verify_decode_jwt(token) method
